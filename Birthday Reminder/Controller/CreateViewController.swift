@@ -41,7 +41,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         userImageView.image = UIImage(named: "user")
         nameTextField.delegate = self
         surnameTextField.delegate = self
-        
+        //denemee
     }
     
     
