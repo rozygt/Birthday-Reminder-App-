@@ -1,0 +1,41 @@
+PODS:
+  - Alamofire (5.5.0)
+  - AlamofireImage (4.2.0):
+    - Alamofire (~> 5.4)
+  - DatePicker (1.3.1):
+    - Extended
+  - DatePickerCell (1.0.9)
+  - Extended (1.0.5)
+  - Kingfisher (7.1.2)
+  - SwiftyJSON (5.0.1)
+
+DEPENDENCIES:
+  - Alamofire
+  - AlamofireImage
+  - DatePicker (~> 1.3.0)
+  - DatePickerCell (~> 1.0)
+  - Kingfisher (~> 7.0)
+  - SwiftyJSON
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - AlamofireImage
+    - DatePicker
+    - DatePickerCell
+    - Extended
+    - Kingfisher
+    - SwiftyJSON
+
+SPEC CHECKSUMS:
+  Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
+  AlamofireImage: 34a2d90b0e5fe6a5605f85ae4b7b01e784c60192
+  DatePicker: 05ddbd2b57d00ce6f44c1f0611ced32f948d33a6
+  DatePickerCell: 021ea693283711cbea28b925537eac6a29c2e40b
+  Extended: c463225e0c29b2823847866c1b106827772ac678
+  Kingfisher: 44ed6a8504763f27bab46163adfac83f5deb240c
+  SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
+
+PODFILE CHECKSUM: adac295ff59471be6898bd83e9028fc894d3b1bc
+
+COCOAPODS: 1.11.2
