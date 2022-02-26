@@ -12,31 +12,15 @@ import UIKit
 
 class CoreDataClass{
 
-    var coreDataArray = [Reminder]()
+    var coreDataArray = [BirthdayReminderCore]()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let currentDateTime = Date()
     
-    func saveContext(){
-        
-        do{
-            try self.context.save()
-            
-        }catch{
-            print("Save Error")
-        }
-        
-    }
+    
     
     func saveReminder(firstName : String, surName: String, birthdayDate: Date, personImage: UIImage){
         
-        let newAdd = Reminder(context: self.context)
-        newAdd.name = firstName + surName
-        let imageAsNSData = personImage.jpegData(compressionQuality: 1)
-        newAdd.image = imageAsNSData
-        newAdd.birtdaydate = birthdayDate
         
-        coreDataArray.append(newAdd)
-        saveContext()
         print(coreDataArray.count)
         
     }

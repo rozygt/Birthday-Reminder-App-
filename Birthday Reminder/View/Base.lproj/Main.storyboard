@@ -21,7 +21,7 @@
         <!--Birthday Reminder-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Birthday_Reminder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="ViewController" customModule="Birthday_Reminder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -321,7 +321,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="WbC-rh-WWF">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="e2s-gR-ccC" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBarController" automaticallyAdjustsScrollViewInsets="NO" id="e2s-gR-ccC" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XYe-zV-PT1">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -340,7 +340,7 @@
         <!--Navigation Controller-->
         <scene sceneID="pw3-8m-3Uf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CjE-8b-2IQ" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="tabbarMain" automaticallyAdjustsScrollViewInsets="NO" id="CjE-8b-2IQ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" id="aoj-bv-Qd0">
                         <imageReference key="image" image="person" catalog="system" renderingMode="hierarchical">
                             <hierarchicalColors>

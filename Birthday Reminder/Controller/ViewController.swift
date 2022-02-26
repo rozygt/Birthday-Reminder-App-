@@ -17,16 +17,15 @@ class ViewController: UIViewController {
     @IBOutlet var emtyView: UIView!
     
     let notificationCenter = UNUserNotificationCenter.current()
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var coreDataArray = [Reminder]()
     let dateFormatter = DateFormatter()
+    var coreDataClass = CoreDataClass()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         mainCollectionView.delegate = self
         mainCollectionView.dataSource = self
         checkdata()
-        
+        print(self.coreDataClass.coreDataArray.count)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -38,10 +37,10 @@ class ViewController: UIViewController {
     func checkdata() {
         let sectionSortDescriptor = NSSortDescriptor(key: "date", ascending: false)
         let sortDescriptors = [sectionSortDescriptor]
-        let request : NSFetchRequest<Reminder> = Reminder.fetchRequest()
+        let request : NSFetchRequest<BirthdayReminderCore> = BirthdayReminderCore.fetchRequest()
         request.sortDescriptors = sortDescriptors
 
-        if coreDataArray.count == 0{
+        if coreDataClass.coreDataArray.count == 0{
             mainCollectionView.isHidden = true
             emtyView.isHidden = false
             emtyImage.isHidden = false
@@ -49,7 +48,7 @@ class ViewController: UIViewController {
         }
         else{
             do{
-                coreDataArray = try context.fetch(request)
+                coreDataClass.coreDataArray = try coreDataClass.context.fetch(request)
                 mainCollectionView.reloadData()
             }catch{
                 print("Error")
@@ -68,15 +67,15 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return coreDataArray.count
+        return coreDataClass.coreDataArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCollectionViewCell", for: indexPath) as? MainCollectionViewCell else {fatalError()}
         
-        cell.imagaView.image = UIImage(data: coreDataArray[indexPath.row].image!)
-        cell.nameLabel.text = coreDataArray[indexPath.row].name
-        cell.dateLabel.text = dateFormatter.string(from: coreDataArray[indexPath.row].birtdaydate!)
+        cell.imagaView.image = UIImage(data: coreDataClass.coreDataArray[indexPath.row].image!)
+        cell.nameLabel.text = coreDataClass.coreDataArray[indexPath.row].name
+        cell.dateLabel.text = dateFormatter.string(from: coreDataClass.coreDataArray[indexPath.row].birtdaydate!)
         
         return cell
         

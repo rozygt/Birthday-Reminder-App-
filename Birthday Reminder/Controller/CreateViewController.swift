@@ -25,13 +25,11 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     @IBOutlet var selectButtonn: UIButton!
     
     let notificationCenter = UNUserNotificationCenter.current()
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var array = CoreDataClass()
+
     var reminderClass = ReminderClass()
     var coreDataClass = CoreDataClass()
     var dateTransfer = Date()
     var selectedImage: UIImage?
-    var coreDataArray = [Reminder]()
     var imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
@@ -41,6 +39,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         userImageView.image = UIImage(named: "user")
         nameTextField.delegate = self
         surnameTextField.delegate = self
+        self.hideKeyboardWhenTappedAround()
         //denemee
     }
     
@@ -70,19 +69,45 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     
     
     @IBAction func doneButtonPressed(_ sender: Any) {
-        self.coreDataClass.saveReminder(firstName: self.nameTextField.text!, surName: self.surnameTextField.text!, birthdayDate: self.dateTransfer, personImage: self.userImageView.image!)
-        coreDataClass.saveContext()
+        if nameTextField.text == "" || dateTimeLabel.isHidden == true{
+            let alert = UIAlertController(title: "Warning", message: "don't empty", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        else{
+           
+            let newAdd = BirthdayReminderCore(context: self.coreDataClass.context)
+            newAdd.name = self.nameTextField.text! + self.surnameTextField.text!
+           
+            let imageAsNSData = self.userImageView.image!.jpegData(compressionQuality: 1)
+            newAdd.image = imageAsNSData
+            newAdd.birtdaydate = self.dateTransfer
+
+            self.coreDataClass.coreDataArray.append(newAdd)
+    saveContext()
+            let alert = UIAlertController(title: "Succes", message: "birthday date added succes", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { action in
+                let mainTabBarController = self.storyboard!.instantiateViewController(identifier: "MainTabBarController")
+                mainTabBarController.modalPresentationStyle = .fullScreen
+            
+                self.present(mainTabBarController, animated: true, completion: nil)
+
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
         
-//        switch state {
-//
-//        case .create:
-//            self.coreDataClass.saveReminder(firstName: self.nameTextField.text!, surName: self.surnameTextField.text!, birthdayDate: self.dateTransfer, personImage: self.userImageView.image!)
-//        case .update:
-//            print("UPDATE")
-//            coreDataClass.updateContext(firstName: self.nameTextField.text!, surName: self.surnameTextField.text!, birthdayDate: self.dateTransfer, personImage: self.userImageView.image!, selectProjectRow: coreDataArray[Reminder])
-//        }
     }
-    
+    func saveContext(){
+        
+        do{
+            try self.coreDataClass.context.save()
+            print("SAVE BASARILI")
+            
+        }catch{
+            print("Save Error")
+        }
+        
+    }
     func openGallery() {
         
         imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
@@ -138,5 +163,16 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         present(alert, animated: true, completion: nil)
     }
     
+}
+extension CreateViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(CreateViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
 
