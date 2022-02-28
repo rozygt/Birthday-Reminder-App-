@@ -37,7 +37,8 @@ class CoreDataClass{
     func updateContext(firstName : String, surName: String, birthdayDate: Date, personImage: UIImage, selectProjectRow: Int){
         let data = coreDataArray[selectProjectRow]
         let imageAsNSData = personImage.jpegData(compressionQuality: 1)
-        data.setValue(firstName + surName, forKey: "name")
+        data.setValue(firstName , forKey: "name")
+        data.setValue(surName, forKey: "surname")
         data.setValue(currentDateTime, forKey: "birtdaydate")
         data.setValue(imageAsNSData, forKey: "image")
         do {

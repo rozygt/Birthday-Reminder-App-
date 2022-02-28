@@ -4,8 +4,9 @@
         <attribute name="birthdaydate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="name" attributeType="String"/>
+        <attribute name="surname" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="BirthdayReminderCore" positionX="-63" positionY="-18" width="128" height="74"/>
+        <element name="BirthdayReminderCore" positionX="-63" positionY="-18" width="128" height="89"/>
     </elements>
 </model>

@@ -9,10 +9,14 @@ import UIKit
 import CoreData
 import UserNotifications
 
+protocol DidSelectUserDelegate{
+    func didSelect(row: Int)
+        
+    
+}
+
 class ViewController: UIViewController {
    
-    
-    
     @IBOutlet var mainCollectionView: UICollectionView!
     @IBOutlet var emtyLabel: UILabel!
     @IBOutlet var emtyImage: UIImageView!
@@ -22,7 +26,8 @@ class ViewController: UIViewController {
     let dateFormatter = DateFormatter()
     var coreDataClass = CoreDataClass()
     var reminderClass = ReminderClass()
-    var delegate : PageStateDelegate?
+    var delegate: DidSelectUserDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mainCollectionView.delegate = self
@@ -84,7 +89,8 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource{
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCollectionViewCell", for: indexPath) as? MainCollectionViewCell else {fatalError()}
         
         cell.imagaView.image = UIImage(data: coreDataClass.coreDataArray[indexPath.row].image!)
-        cell.nameLabel.text = coreDataClass.coreDataArray[indexPath.row].name
+        
+        cell.nameLabel.text = coreDataClass.coreDataArray[indexPath.row].name! + " " + coreDataClass.coreDataArray[indexPath.row].surname!
         cell.dateLabel.text = reminderClass.formattedDateGet(date: coreDataClass.coreDataArray[indexPath.row].birthdaydate!)
         
         return cell
@@ -95,15 +101,13 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource{
         let refreshAlert = UIAlertController(title: "Choose", message: "Please the choose item", preferredStyle: UIAlertController.Style.alert)
         refreshAlert.addAction(UIAlertAction(title: "Edit Project", style: .default, handler: { [self] (action: UIAlertAction!) in
             
-//            let navController = self.tabBarController!.viewControllers![1] as! UINavigationController
-//            let vc = navController.topViewController as! CreateViewController
-//            vc.state = .update
-            let mainTabBarController = self.storyboard!.instantiateViewController(identifier: "createNavigationController")
-            mainTabBarController.modalPresentationStyle = .fullScreen
-            delegate?.didSelectState(value: "update")
-            
- 
-            self.present(mainTabBarController, animated: true, completion: nil)
+            let navVC = tabBarController?.viewControllers![1] as! UINavigationController
+            let cartTableViewController = navVC.topViewController as! CreateViewController
+            cartTableViewController.state = .update
+            cartTableViewController.indexPath = indexPath.row
+            delegate?.didSelect(row: indexPath.row)
+            cartTableViewController.reminder = coreDataClass.coreDataArray[indexPath.row]
+            tabBarController?.selectedIndex = 1
             
         }))
         refreshAlert.addAction(UIAlertAction(title: "Delete Project", style: .cancel, handler: { (action: UIAlertAction!) in
