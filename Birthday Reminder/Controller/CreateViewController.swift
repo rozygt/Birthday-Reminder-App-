@@ -25,7 +25,9 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     @IBOutlet var selectButtonn: UIButton!
     
     let notificationCenter = UNUserNotificationCenter.current()
-
+    var state: ReminderAddPageState = .create
+    var reminder: NSManagedObject?
+    
     var reminderClass = ReminderClass()
     var coreDataClass = CoreDataClass()
     var dateTransfer = Date()
@@ -40,9 +42,33 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         nameTextField.delegate = self
         surnameTextField.delegate = self
         self.hideKeyboardWhenTappedAround()
-        //denemee
+        notificationCenter.requestAuthorization(options: [.alert, .sound]) {
+            (permissionGranted, error) in
+            if(!permissionGranted){
+                print("Permission Denied")
+            }
+        }
+        print("REMINDERRR")
+        self.hideKeyboardWhenTappedAround()
+        let image = userImageView.image
+        
+        userImageView.layer.cornerRadius = (image?.size.width)! / 2
+        
+        if state == .create{
+            addButton.title = "selam"
+        }
+        else{
+            getReminder()
+            addButton.title = "selam"
+        }
     }
     
+    func getReminder(){
+        nameTextField.text = reminder?.value(forKey: "name") as? String
+        let picture = reminder?.value(forKey: "image")
+        userImageView.image  = UIImage(data: picture as! Data)
+        
+    }
     
     @IBAction func selectButtonPressed(_ sender: Any) {
         let minDate = DatePickerHelper.shared.dateFrom(day: 18, month: 08, year: 1990)!
@@ -54,7 +80,6 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
             if selected, let selectedDate = date {
                 self.dateTimeLabel.text = self.reminderClass.formattedDateGet(date: selectedDate)
                 let selectedDate = dateTransfer
-                
                 print("\(selectedDate)")
                 self.dateTimeLabel.isHidden = false
             } else {
@@ -66,48 +91,55 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         datePicker.show(in: self, on: sender as! UIView)
     }
     
+    @IBAction func canclButtonPressed(_ sender: Any) {
+        let mainTabBarController = self.storyboard!.instantiateViewController(identifier: "MainTabBarController")
+        mainTabBarController.modalPresentationStyle = .fullScreen
+        
+        self.present(mainTabBarController, animated: true, completion: nil)
+    }
     
     
     @IBAction func doneButtonPressed(_ sender: Any) {
-        if nameTextField.text == "" || dateTimeLabel.isHidden == true{
-            let alert = UIAlertController(title: "Warning", message: "don't empty", preferredStyle: UIAlertController.Style.alert)
+        if nameTextField.text == "" && dateTimeLabel.isHidden == true{
+            let alert = UIAlertController(title: "Warning", message: "Name and date of birth cannot be empty.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        else if dateTimeLabel.isHidden == true{
+            let alert = UIAlertController(title: "Warning", message: "Date of birth field cannot be empty", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        else if nameTextField.text == ""{
+            let alert = UIAlertController(title: "Warning", message: "Name field cannot be empty", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
         else{
-           
+            
             let newAdd = BirthdayReminderCore(context: self.coreDataClass.context)
             newAdd.name = self.nameTextField.text! + self.surnameTextField.text!
-           
+            
             let imageAsNSData = self.userImageView.image!.jpegData(compressionQuality: 1)
             newAdd.image = imageAsNSData
-            newAdd.birtdaydate = self.dateTransfer
-
+            newAdd.birthdaydate = self.dateTransfer
+            
             self.coreDataClass.coreDataArray.append(newAdd)
-    saveContext()
+            coreDataClass.saveContext()
+            print(self.coreDataClass.coreDataArray.count)
             let alert = UIAlertController(title: "Succes", message: "birthday date added succes", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { action in
                 let mainTabBarController = self.storyboard!.instantiateViewController(identifier: "MainTabBarController")
                 mainTabBarController.modalPresentationStyle = .fullScreen
-            
+                
                 self.present(mainTabBarController, animated: true, completion: nil)
-
+                
             }))
             self.present(alert, animated: true, completion: nil)
         }
         
     }
-    func saveContext(){
-        
-        do{
-            try self.coreDataClass.context.save()
-            print("SAVE BASARILI")
-            
-        }catch{
-            print("Save Error")
-        }
-        
-    }
+    
     func openGallery() {
         
         imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary

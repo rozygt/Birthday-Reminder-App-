@@ -16,10 +16,19 @@ class CoreDataClass{
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let currentDateTime = Date()
     
-    
+    func saveContext(){
+        
+        do{
+            try context.save()
+            print("SAVE BASARILI")
+            
+        }catch{
+            print("Save Error")
+        }
+        
+    }
     
     func saveReminder(firstName : String, surName: String, birthdayDate: Date, personImage: UIImage){
-        
         
         print(coreDataArray.count)
         
