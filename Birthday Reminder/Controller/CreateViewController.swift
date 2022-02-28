@@ -9,12 +9,16 @@ import UIKit
 import DatePicker
 import CoreData
 
-enum ReminderAddPageState {
+enum ReminderPageState {
     case create
     case update
 }
-
+protocol PageStateDelegate{
+    func didSelectState(value:String)
+}
 class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+   
+    
     
     @IBOutlet var addButton: UIBarButtonItem!
     @IBOutlet var dateTimeLabel: UILabel!
@@ -25,9 +29,10 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     @IBOutlet var selectButtonn: UIButton!
     
     let notificationCenter = UNUserNotificationCenter.current()
-    var state: ReminderAddPageState = .create
+    var state: ReminderPageState = .create
     var reminder: NSManagedObject?
-    
+    var newState = ""
+    var delegate : PageStateDelegate?
     var reminderClass = ReminderClass()
     var coreDataClass = CoreDataClass()
     var dateTransfer = Date()
@@ -37,10 +42,11 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     override func viewDidLoad() {
         super.viewDidLoad()
         selectButtonn.layer.cornerRadius = 10
-        dateTimeLabel.isHidden = true
+        dateTimeLabel.isHidden = false
         userImageView.image = UIImage(named: "user")
         nameTextField.delegate = self
         surnameTextField.delegate = self
+        delegate = self
         self.hideKeyboardWhenTappedAround()
         notificationCenter.requestAuthorization(options: [.alert, .sound]) {
             (permissionGranted, error) in
@@ -48,25 +54,38 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
                 print("Permission Denied")
             }
         }
-        print("REMINDERRR")
+
         self.hideKeyboardWhenTappedAround()
-        let image = userImageView.image
-        
-        userImageView.layer.cornerRadius = (image?.size.width)! / 2
         
         if state == .create{
-            addButton.title = "selam"
+
+            print("buraya girdi11")
+            
+           
         }
         else{
-            getReminder()
-            addButton.title = "selam"
+            print("buraya girdi")
+            //getReminder()
+
         }
     }
     
     func getReminder(){
+        print(reminder?.value(forKey: "name") as? String as Any)
         nameTextField.text = reminder?.value(forKey: "name") as? String
         let picture = reminder?.value(forKey: "image")
         userImageView.image  = UIImage(data: picture as! Data)
+        if let strDate = reminder?.value(forKey: "birthdaydate") as? Date{
+            dateTimeLabel.text = reminderClass.formattedDateGet(date: strDate)
+            
+//            let dateFormatter = DateFormatter()
+//            dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+//
+//            if let date = dateFormatter.string(from: strDate) {
+//                print("str \(strDate) \(date)")
+//                dateTimeLabel.text = date
+//            }
+        }
         
     }
     
@@ -206,5 +225,14 @@ extension CreateViewController {
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
+    
+    
 }
 
+
+
+extension CreateViewController: PageStateDelegate{
+    func didSelectState(value: String) {
+        dateTimeLabel.text = value
+    }
+}

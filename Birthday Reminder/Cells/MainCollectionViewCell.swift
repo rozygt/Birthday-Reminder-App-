@@ -12,4 +12,15 @@ class MainCollectionViewCell: UICollectionViewCell {
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var nameLabel: UILabel!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        imagaView.contentMode = UIView.ContentMode.scaleAspectFill
+        imagaView.layer.cornerRadius = self.frame.height / 3
+        imagaView.layer.masksToBounds = false
+        imagaView.clipsToBounds = true
+    
+        
+    }
+    
 }

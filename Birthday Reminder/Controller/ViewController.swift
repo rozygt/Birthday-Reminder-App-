@@ -10,6 +10,8 @@ import CoreData
 import UserNotifications
 
 class ViewController: UIViewController {
+   
+    
     
     @IBOutlet var mainCollectionView: UICollectionView!
     @IBOutlet var emtyLabel: UILabel!
@@ -19,12 +21,14 @@ class ViewController: UIViewController {
     let notificationCenter = UNUserNotificationCenter.current()
     let dateFormatter = DateFormatter()
     var coreDataClass = CoreDataClass()
-    
+    var reminderClass = ReminderClass()
+    var delegate : PageStateDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
         mainCollectionView.delegate = self
         mainCollectionView.dataSource = self
         checkdata()
+        
         print(self.coreDataClass.coreDataArray.count)
     }
     
@@ -62,9 +66,13 @@ class ViewController: UIViewController {
             
         }
     }
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+       
+    }
     
 }
+
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     
     
@@ -77,22 +85,26 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource{
         
         cell.imagaView.image = UIImage(data: coreDataClass.coreDataArray[indexPath.row].image!)
         cell.nameLabel.text = coreDataClass.coreDataArray[indexPath.row].name
-        cell.dateLabel.text = dateFormatter.string(from: coreDataClass.coreDataArray[indexPath.row].birthdaydate!)
+        cell.dateLabel.text = reminderClass.formattedDateGet(date: coreDataClass.coreDataArray[indexPath.row].birthdaydate!)
         
         return cell
         
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(dateFormatter.string(from: coreDataClass.coreDataArray[indexPath.row].birthdaydate!))
         let refreshAlert = UIAlertController(title: "Choose", message: "Please the choose item", preferredStyle: UIAlertController.Style.alert)
         refreshAlert.addAction(UIAlertAction(title: "Edit Project", style: .default, handler: { [self] (action: UIAlertAction!) in
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let getImage = UIImage(data: self.coreDataClass.coreDataArray[indexPath.row].image!)
-            let getName = coreDataClass.coreDataArray[indexPath.row].name
-            let getDate = dateFormatter.string(from: coreDataClass.coreDataArray[indexPath.row].birthdaydate!)
+            
+//            let navController = self.tabBarController!.viewControllers![1] as! UINavigationController
+//            let vc = navController.topViewController as! CreateViewController
+//            vc.state = .update
             let mainTabBarController = self.storyboard!.instantiateViewController(identifier: "createNavigationController")
             mainTabBarController.modalPresentationStyle = .fullScreen
+            delegate?.didSelectState(value: "update")
             
+ 
             self.present(mainTabBarController, animated: true, completion: nil)
+            
         }))
         refreshAlert.addAction(UIAlertAction(title: "Delete Project", style: .cancel, handler: { (action: UIAlertAction!) in
             let fetchRequest = NSFetchRequest<BirthdayReminderCore>(entityName: "BirthdayReminderCore")
@@ -109,8 +121,9 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource{
             self.mainCollectionView.reloadData()
         }))
         refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
-            self.dismiss(animated: true, completion: nil)
+            
         }))
+        
         present(refreshAlert, animated: true, completion: nil)
     }
     

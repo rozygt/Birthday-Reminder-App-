@@ -48,10 +48,12 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="aMZ-TW-MM3">
-                                                    <rect key="frame" x="22" y="8" width="116" height="110"/>
+                                                    <rect key="frame" x="14" y="8" width="120" height="120"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="116" id="Hlm-Qd-atW"/>
-                                                        <constraint firstAttribute="height" constant="110" id="Oyj-3v-GAS"/>
+                                                        <constraint firstAttribute="width" constant="120" id="Hlm-Qd-atW"/>
+                                                        <constraint firstAttribute="height" constant="120" id="Oyj-3v-GAS"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8u-Nn-qpg">
@@ -76,14 +78,14 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="aMZ-TW-MM3" firstAttribute="leading" secondItem="dkj-59-IgR" secondAttribute="leading" constant="22" id="4Pz-Wr-TBD"/>
+                                                <constraint firstItem="aMZ-TW-MM3" firstAttribute="leading" secondItem="dkj-59-IgR" secondAttribute="leading" constant="14" id="4Pz-Wr-TBD"/>
                                                 <constraint firstAttribute="bottom" secondItem="X7M-4h-RxX" secondAttribute="bottom" constant="8" id="E3C-f2-K6f"/>
-                                                <constraint firstAttribute="trailing" secondItem="aMZ-TW-MM3" secondAttribute="trailing" constant="22" id="FRt-RE-2Tf"/>
+                                                <constraint firstAttribute="trailing" secondItem="aMZ-TW-MM3" secondAttribute="trailing" constant="26" id="FRt-RE-2Tf"/>
                                                 <constraint firstItem="X7M-4h-RxX" firstAttribute="top" secondItem="L8u-Nn-qpg" secondAttribute="bottom" constant="8" id="G0H-Y8-exD"/>
                                                 <constraint firstAttribute="trailing" secondItem="X7M-4h-RxX" secondAttribute="trailing" constant="8" id="LLy-W7-I7C"/>
                                                 <constraint firstAttribute="trailing" secondItem="L8u-Nn-qpg" secondAttribute="trailing" constant="8" id="Mml-yo-XEf"/>
                                                 <constraint firstItem="aMZ-TW-MM3" firstAttribute="top" secondItem="dkj-59-IgR" secondAttribute="top" constant="8" id="Qry-Dz-g0A"/>
-                                                <constraint firstItem="L8u-Nn-qpg" firstAttribute="top" secondItem="aMZ-TW-MM3" secondAttribute="bottom" constant="14" id="e8Z-Te-39Z"/>
+                                                <constraint firstItem="L8u-Nn-qpg" firstAttribute="top" secondItem="aMZ-TW-MM3" secondAttribute="bottom" constant="4" id="e8Z-Te-39Z"/>
                                                 <constraint firstItem="L8u-Nn-qpg" firstAttribute="leading" secondItem="dkj-59-IgR" secondAttribute="leading" constant="8" id="ofT-9n-58P"/>
                                                 <constraint firstItem="X7M-4h-RxX" firstAttribute="leading" secondItem="dkj-59-IgR" secondAttribute="leading" constant="8" id="vY1-b2-23c"/>
                                             </constraints>
@@ -154,7 +156,7 @@
         <!--Create View Controller-->
         <scene sceneID="3aA-uX-rRb">
             <objects>
-                <viewController id="qRg-Gm-yf3" customClass="CreateViewController" customModule="Birthday_Reminder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qRg-Gm-yf3" customClass="CreateViewController" customModule="Birthday_Reminder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cQT-WN-F5i">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
