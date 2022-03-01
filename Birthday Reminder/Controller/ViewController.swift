@@ -11,8 +11,6 @@ import UserNotifications
 
 protocol DidSelectUserDelegate{
     func didSelect(row: Int)
-        
-    
 }
 
 class ViewController: UIViewController {
@@ -33,14 +31,11 @@ class ViewController: UIViewController {
         mainCollectionView.delegate = self
         mainCollectionView.dataSource = self
         checkdata()
-        
-        print(self.coreDataClass.coreDataArray.count)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         checkdata()
-        
     }
     
     func checkdata() {
@@ -56,7 +51,6 @@ class ViewController: UIViewController {
         }
         // Data gemeden coredata array count 0 ise data göstermiyor, yukarıda do catch bloğu ile datayı fetch ettik
         // sonra count 0 ise veya degilse islem gercekleştirdik
-        // classa data taşı ben create view controllerda savecontecxt bıraktım onu ordan al olabildiğinde verileri taşı classa
         if coreDataClass.coreDataArray.count == 0{
             mainCollectionView.isHidden = true
             emtyView.isHidden = false
@@ -70,10 +64,6 @@ class ViewController: UIViewController {
             emtyLabel.isHidden = true
             
         }
-    }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-       
     }
     
 }
@@ -89,7 +79,6 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource{
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCollectionViewCell", for: indexPath) as? MainCollectionViewCell else {fatalError()}
         
         cell.imagaView.image = UIImage(data: coreDataClass.coreDataArray[indexPath.row].image!)
-        
         cell.nameLabel.text = coreDataClass.coreDataArray[indexPath.row].name! + " " + coreDataClass.coreDataArray[indexPath.row].surname!
         cell.dateLabel.text = reminderClass.formattedDateGet(date: coreDataClass.coreDataArray[indexPath.row].birthdaydate!)
         

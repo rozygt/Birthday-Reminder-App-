@@ -165,9 +165,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="301"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="Rba-sb-GFm">
-                                        <rect key="frame" x="142" y="81" width="130" height="138"/>
+                                        <rect key="frame" x="142" y="81" width="130" height="130"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="138" id="hDE-g9-oWP"/>
+                                            <constraint firstAttribute="height" constant="130" id="hDE-g9-oWP"/>
                                             <constraint firstAttribute="width" constant="130" id="jmZ-41-ojM"/>
                                         </constraints>
                                     </imageView>
@@ -192,9 +192,9 @@
                                     <constraint firstAttribute="height" constant="301" id="6U0-LF-cBM"/>
                                     <constraint firstItem="Rba-sb-GFm" firstAttribute="centerX" secondItem="jw9-8P-8Dn" secondAttribute="centerX" id="RhT-gh-oda"/>
                                     <constraint firstItem="bMS-PV-KVs" firstAttribute="centerX" secondItem="jw9-8P-8Dn" secondAttribute="centerX" id="ZED-Sz-5eb"/>
-                                    <constraint firstItem="Rba-sb-GFm" firstAttribute="centerY" secondItem="jw9-8P-8Dn" secondAttribute="centerY" constant="-0.5" id="jI4-qd-Zst"/>
+                                    <constraint firstItem="Rba-sb-GFm" firstAttribute="centerY" secondItem="jw9-8P-8Dn" secondAttribute="centerY" constant="-4.5" id="jI4-qd-Zst"/>
                                     <constraint firstAttribute="width" constant="414" id="kk9-Qd-tRB"/>
-                                    <constraint firstItem="bMS-PV-KVs" firstAttribute="top" secondItem="Rba-sb-GFm" secondAttribute="bottom" constant="8" id="yct-j4-wN4"/>
+                                    <constraint firstItem="bMS-PV-KVs" firstAttribute="top" secondItem="Rba-sb-GFm" secondAttribute="bottom" constant="16" id="yct-j4-wN4"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RyI-kE-vxD">
@@ -298,7 +298,7 @@
                         <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="8k8-Zf-04a">
                             <color key="tintColor" red="1" green="0.64313725489999995" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <action selector="canclButtonPressed:" destination="qRg-Gm-yf3" id="za5-25-9V0"/>
+                                <action selector="cancelButtonPressed:" destination="qRg-Gm-yf3" id="Ky3-uV-Fdv"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="vc5-em-OeW">
@@ -408,7 +408,7 @@
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="question" width="512" height="512"/>
-        <image name="user" width="512" height="512"/>
+        <image name="user" width="170.5" height="170.5"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

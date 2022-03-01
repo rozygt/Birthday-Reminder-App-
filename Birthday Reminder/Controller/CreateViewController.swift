@@ -25,6 +25,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     @IBOutlet var selectButtonn: UIButton!
     
     let notificationCenter = UNUserNotificationCenter.current()
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var state: ReminderPageState = .create
     var reminder: NSManagedObject?
     var reminderClass = ReminderClass()
@@ -39,11 +40,17 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         super.viewDidLoad()
         selectButtonn.layer.cornerRadius = 10
         dateTimeLabel.isHidden = true
+        changeImageButton.layer.borderColor = UIColor.systemOrange.cgColor
+        changeImageButton.layer.cornerRadius = 1
         userImageView.image = UIImage(named: "user")
+        userImageView.contentMode = UIView.ContentMode.scaleAspectFill
+        userImageView.layer.cornerRadius = (userImageView.frame.height) / 2
+        userImageView.layer.masksToBounds = false
+        userImageView.clipsToBounds = true
         nameTextField.delegate = self
         surnameTextField.delegate = self
         delegate = self
-        print("CİGULİ \(indexPath)")
+        print("Warning \(indexPath)")
         self.hideKeyboardWhenTappedAround()
         notificationCenter.requestAuthorization(options: [.alert, .sound]) {
             (permissionGranted, error) in
@@ -51,42 +58,79 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
                 print("Permission Denied")
             }
         }
-
         self.hideKeyboardWhenTappedAround()
         
         if state == .create{
-
-            print("buraya girdi11")
-            
-           
+            print("create buraya girdi11")
         }
         else{
             print("update buraya girdi")
             getReminder()
-
         }
     }
     
     func getReminder(){
-        print(reminder?.value(forKey: "name") as? String as Any)
         nameTextField.text = reminder?.value(forKey: "name") as? String
         surnameTextField.text = reminder?.value(forKey: "surname") as? String
         let picture = reminder?.value(forKey: "image")
         userImageView.image  = UIImage(data: picture as! Data)
         if let strDate = reminder?.value(forKey: "birthdaydate") as? Date{
             dateTimeLabel.text = reminderClass.formattedDateGet(date: strDate)
-        
-//            let dateFormatter = DateFormatter()
-//            dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
-//
-//            if let date = dateFormatter.string(from: strDate) {
-//                print("str \(strDate) \(date)")
-//                dateTimeLabel.text = date
-//            }
+            
+            //            let dateFormatter = DateFormatter()
+            //            dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+            //
+            //            if let date = dateFormatter.string(from: strDate) {
+            //                print("str \(strDate) \(date)")
+            //                dateTimeLabel.text = date
+            //            }
         }
         dateTimeLabel.isHidden = false
     }
     
+    func saveReminder(){
+        let newAdd = BirthdayReminderCore(context: self.coreDataClass.context)
+        newAdd.name = self.nameTextField.text!
+        newAdd.surname = self.surnameTextField.text!
+        let imageAsNSData = self.userImageView.image!.jpegData(compressionQuality: 1)
+        newAdd.image = imageAsNSData
+        newAdd.birthdaydate = self.dateTransfer
+        
+        self.coreDataClass.coreDataArray.append(newAdd)
+        coreDataClass.saveContext()
+        
+        notificationCenter.getNotificationSettings { (settings) in
+            
+            DispatchQueue.main.async
+            {
+                let title = self.nameTextField.text
+                let message = self.dateTimeLabel.text
+                
+                if(settings.authorizationStatus == .authorized)
+                {
+                    let content = UNMutableNotificationContent()
+                    content.title = title!
+                    content.body = message!
+                    content.sound = .default
+                    
+                    let dateComp = Calendar.current.dateComponents([.year, .month, .day], from: self.dateTransfer)
+                    //2022-11-17 11:41:00 +0000
+                    let trigger = UNCalendarNotificationTrigger(dateMatching: dateComp, repeats: false)
+                    let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                    
+                    self.notificationCenter.add(request) { (error) in
+                        if(error != nil)
+                        {
+                            print("Error " + error.debugDescription)
+                            return
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+
     @IBAction func selectButtonPressed(_ sender: Any) {
         let minDate = DatePickerHelper.shared.dateFrom(day: 18, month: 08, year: 1940)!
         let maxDate = DatePickerHelper.shared.dateFrom(day: 18, month: 08, year: 2023)!
@@ -103,12 +147,11 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
                 print("cancelled")
             }
         }
-        
         // Display
         datePicker.show(in: self, on: sender as! UIView)
     }
     
-    @IBAction func canclButtonPressed(_ sender: Any) {
+    @IBAction func cancelButtonPressed(_ sender: Any) {
         let mainTabBarController = self.storyboard!.instantiateViewController(identifier: "MainTabBarController")
         mainTabBarController.modalPresentationStyle = .fullScreen
         
@@ -119,22 +162,16 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     @IBAction func doneButtonPressed(_ sender: Any) {
         if state == .create {
             if nameTextField.text == "" && dateTimeLabel.isHidden == true{
-                let alert = UIAlertController(title: "Warning", message: "Name and date of birth cannot be empty.", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                reminderClass.warningAction(errorMessage: "Name and date of birth cannot be empty.", viewController: self)
             }
             else if dateTimeLabel.isHidden == true{
-                let alert = UIAlertController(title: "Warning", message: "Date of birth field cannot be empty", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                reminderClass.warningAction(errorMessage: "Date of birth field cannot be empty.", viewController: self)
             }
             else if nameTextField.text == ""{
-                let alert = UIAlertController(title: "Warning", message: "Name field cannot be empty", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                reminderClass.warningAction(errorMessage: "Name field cannot be empty.", viewController: self)
             }
             else{
-                print("CİGULİ /(indexPath)")
+                print("donebutton girdi /(indexPath)")
                 let newAdd = BirthdayReminderCore(context: self.coreDataClass.context)
                 newAdd.name = self.nameTextField.text!
                 newAdd.surname = self.surnameTextField.text!
@@ -144,61 +181,33 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
                 
                 self.coreDataClass.coreDataArray.append(newAdd)
                 coreDataClass.saveContext()
-                print(self.coreDataClass.coreDataArray.count)
-                let alert = UIAlertController(title: "Succes", message: "birthday date added succes", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { action in
-                    let mainTabBarController = self.storyboard!.instantiateViewController(identifier: "MainTabBarController")
-                    mainTabBarController.modalPresentationStyle = .fullScreen
-                    
-                    self.present(mainTabBarController, animated: true, completion: nil)
-                    
-                }))
-                self.present(alert, animated: true, completion: nil)
+                
+                reminderClass.successAction(vc: self)
             }
             
         }
         else {
             if nameTextField.text == "" && dateTimeLabel.isHidden == true{
-                let alert = UIAlertController(title: "Warning", message: "Name and date of birth cannot be empty.", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                reminderClass.warningAction(errorMessage: "Name and date of birth cannot be empty.", viewController: self)
             }
             else if dateTimeLabel.isHidden == true{
-                let alert = UIAlertController(title: "Warning", message: "Date of birth field cannot be empty", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                reminderClass.warningAction(errorMessage: "Date of birth field cannot be empty.", viewController: self)
             }
             else if nameTextField.text == ""{
-                let alert = UIAlertController(title: "Warning", message: "Name field cannot be empty", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                reminderClass.warningAction(errorMessage: "Name field cannot be empty.", viewController: self)
             }
             else{
                 coreDataClass.updateContext(firstName: self.nameTextField.text!, surName: self.surnameTextField.text!, birthdayDate: self.dateTransfer, personImage: self.userImageView.image!, selectProjectRow: indexPath)
-    
-                let alert = UIAlertController(title: "Succes", message: "birthday date added succes", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { action in
-                    let mainTabBarController = self.storyboard!.instantiateViewController(identifier: "MainTabBarController")
-                    mainTabBarController.modalPresentationStyle = .fullScreen
-                    
-                    self.present(mainTabBarController, animated: true, completion: nil)
-                    
-                }))
-                self.present(alert, animated: true, completion: nil)
+                
+                reminderClass.successAction(vc: self)
             }
-            
-            
         }
-       
     }
     
     func openGallery() {
-        
         imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
         present(imagePicker, animated: true, completion: nil)
-        
     }
-    
     
     func openCamera() {
         if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera))
@@ -220,7 +229,6 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         guard let image = info[.originalImage] as? UIImage else {
             return
         }
-        
         userImageView.image = image
         picker.dismiss(animated: true, completion: nil)
     }
@@ -270,3 +278,4 @@ extension CreateViewController: DidSelectUserDelegate{
     
     
 }
+

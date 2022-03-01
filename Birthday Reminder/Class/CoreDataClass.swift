@@ -28,12 +28,6 @@ class CoreDataClass{
         
     }
     
-    func saveReminder(firstName : String, surName: String, birthdayDate: Date, personImage: UIImage){
-        
-        print(coreDataArray.count)
-        
-    }
-    
     func updateContext(firstName : String, surName: String, birthdayDate: Date, personImage: UIImage, selectProjectRow: Int){
         let data = coreDataArray[selectProjectRow]
         let imageAsNSData = personImage.jpegData(compressionQuality: 1)
