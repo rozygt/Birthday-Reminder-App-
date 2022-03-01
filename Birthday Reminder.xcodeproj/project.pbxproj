@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		F40592F327C9117E002E70D5 /* CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40592F227C9117E002E70D5 /* CoreDataClass.swift */; };
 		F40592F527C92494002E70D5 /* ReminderClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40592F427C92494002E70D5 /* ReminderClass.swift */; };
+		F408241927CEAE6F00895669 /* font1.otf in Resources */ = {isa = PBXBuildFile; fileRef = F408241227CEAE6F00895669 /* font1.otf */; };
+		F408241A27CEAE6F00895669 /* font6.otf in Resources */ = {isa = PBXBuildFile; fileRef = F408241327CEAE6F00895669 /* font6.otf */; };
+		F408241B27CEAE6F00895669 /* font3.otf in Resources */ = {isa = PBXBuildFile; fileRef = F408241427CEAE6F00895669 /* font3.otf */; };
+		F408241C27CEAE6F00895669 /* font7.otf in Resources */ = {isa = PBXBuildFile; fileRef = F408241527CEAE6F00895669 /* font7.otf */; };
+		F408241D27CEAE6F00895669 /* font2.otf in Resources */ = {isa = PBXBuildFile; fileRef = F408241627CEAE6F00895669 /* font2.otf */; };
+		F408241E27CEAE6F00895669 /* font5.otf in Resources */ = {isa = PBXBuildFile; fileRef = F408241727CEAE6F00895669 /* font5.otf */; };
+		F408241F27CEAE6F00895669 /* font4.otf in Resources */ = {isa = PBXBuildFile; fileRef = F408241827CEAE6F00895669 /* font4.otf */; };
 		F4A671F927C6B8C00060DEF0 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A671F827C6B8C00060DEF0 /* MainCollectionViewCell.swift */; };
 		F4DA408427C56D72006F8964 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DA408327C56D72006F8964 /* AppDelegate.swift */; };
 		F4DA408627C56D72006F8964 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DA408527C56D72006F8964 /* SceneDelegate.swift */; };
@@ -18,13 +25,6 @@
 		F4DA409027C56D72006F8964 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4DA408F27C56D72006F8964 /* Assets.xcassets */; };
 		F4DA409327C56D72006F8964 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4DA409127C56D72006F8964 /* LaunchScreen.storyboard */; };
 		F4DA409E27C5728E006F8964 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DA409D27C5728E006F8964 /* CreateViewController.swift */; };
-		F4DA40A927C576EC006F8964 /* font1.otf in Resources */ = {isa = PBXBuildFile; fileRef = F4DA40A227C576EC006F8964 /* font1.otf */; };
-		F4DA40AA27C576EC006F8964 /* font4.otf in Resources */ = {isa = PBXBuildFile; fileRef = F4DA40A327C576EC006F8964 /* font4.otf */; };
-		F4DA40AB27C576EC006F8964 /* font5.otf in Resources */ = {isa = PBXBuildFile; fileRef = F4DA40A427C576EC006F8964 /* font5.otf */; };
-		F4DA40AC27C576EC006F8964 /* font7.otf in Resources */ = {isa = PBXBuildFile; fileRef = F4DA40A527C576EC006F8964 /* font7.otf */; };
-		F4DA40AD27C576EC006F8964 /* font2.otf in Resources */ = {isa = PBXBuildFile; fileRef = F4DA40A627C576EC006F8964 /* font2.otf */; };
-		F4DA40AE27C576EC006F8964 /* font6.otf in Resources */ = {isa = PBXBuildFile; fileRef = F4DA40A727C576EC006F8964 /* font6.otf */; };
-		F4DA40AF27C576EC006F8964 /* font3.otf in Resources */ = {isa = PBXBuildFile; fileRef = F4DA40A827C576EC006F8964 /* font3.otf */; };
 		F6D45C72327B7B44AFA7E7B9 /* Pods_Birthday_Reminder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188006D566A782BA138941DD /* Pods_Birthday_Reminder.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +34,13 @@
 		A544DCDD793B5BB7F4C517AB /* Pods-Birthday Reminder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Birthday Reminder.debug.xcconfig"; path = "Target Support Files/Pods-Birthday Reminder/Pods-Birthday Reminder.debug.xcconfig"; sourceTree = "<group>"; };
 		F40592F227C9117E002E70D5 /* CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataClass.swift; sourceTree = "<group>"; };
 		F40592F427C92494002E70D5 /* ReminderClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderClass.swift; sourceTree = "<group>"; };
+		F408241227CEAE6F00895669 /* font1.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = font1.otf; path = "../../../../Documents/Untitled/Birthday Reminder/Fonts/font1.otf"; sourceTree = "<group>"; };
+		F408241327CEAE6F00895669 /* font6.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = font6.otf; path = "../../../../Documents/Untitled/Birthday Reminder/Fonts/font6.otf"; sourceTree = "<group>"; };
+		F408241427CEAE6F00895669 /* font3.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = font3.otf; path = "../../../../Documents/Untitled/Birthday Reminder/Fonts/font3.otf"; sourceTree = "<group>"; };
+		F408241527CEAE6F00895669 /* font7.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = font7.otf; path = "../../../../Documents/Untitled/Birthday Reminder/Fonts/font7.otf"; sourceTree = "<group>"; };
+		F408241627CEAE6F00895669 /* font2.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = font2.otf; path = "../../../../Documents/Untitled/Birthday Reminder/Fonts/font2.otf"; sourceTree = "<group>"; };
+		F408241727CEAE6F00895669 /* font5.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = font5.otf; path = "../../../../Documents/Untitled/Birthday Reminder/Fonts/font5.otf"; sourceTree = "<group>"; };
+		F408241827CEAE6F00895669 /* font4.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = font4.otf; path = "../../../../Documents/Untitled/Birthday Reminder/Fonts/font4.otf"; sourceTree = "<group>"; };
 		F4A671F827C6B8C00060DEF0 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 		F4DA408027C56D72006F8964 /* Birthday Reminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Birthday Reminder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4DA408327C56D72006F8964 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -45,13 +52,6 @@
 		F4DA409227C56D72006F8964 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F4DA409427C56D72006F8964 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4DA409D27C5728E006F8964 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
-		F4DA40A227C576EC006F8964 /* font1.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = font1.otf; path = "../../../../Downloads/Brandon-Grotesque-Font-Family/font1.otf"; sourceTree = "<group>"; };
-		F4DA40A327C576EC006F8964 /* font4.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = font4.otf; path = "../../../../Downloads/Brandon-Grotesque-Font-Family/font4.otf"; sourceTree = "<group>"; };
-		F4DA40A427C576EC006F8964 /* font5.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = font5.otf; path = "../../../../Downloads/Brandon-Grotesque-Font-Family/font5.otf"; sourceTree = "<group>"; };
-		F4DA40A527C576EC006F8964 /* font7.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = font7.otf; path = "../../../../Downloads/Brandon-Grotesque-Font-Family/font7.otf"; sourceTree = "<group>"; };
-		F4DA40A627C576EC006F8964 /* font2.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = font2.otf; path = "../../../../Downloads/Brandon-Grotesque-Font-Family/font2.otf"; sourceTree = "<group>"; };
-		F4DA40A727C576EC006F8964 /* font6.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = font6.otf; path = "../../../../Downloads/Brandon-Grotesque-Font-Family/font6.otf"; sourceTree = "<group>"; };
-		F4DA40A827C576EC006F8964 /* font3.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = font3.otf; path = "../../../../Downloads/Brandon-Grotesque-Font-Family/font3.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,13 +164,13 @@
 		F4DA40A127C57699006F8964 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				F4DA40A227C576EC006F8964 /* font1.otf */,
-				F4DA40A627C576EC006F8964 /* font2.otf */,
-				F4DA40A827C576EC006F8964 /* font3.otf */,
-				F4DA40A327C576EC006F8964 /* font4.otf */,
-				F4DA40A427C576EC006F8964 /* font5.otf */,
-				F4DA40A727C576EC006F8964 /* font6.otf */,
-				F4DA40A527C576EC006F8964 /* font7.otf */,
+				F408241227CEAE6F00895669 /* font1.otf */,
+				F408241627CEAE6F00895669 /* font2.otf */,
+				F408241427CEAE6F00895669 /* font3.otf */,
+				F408241827CEAE6F00895669 /* font4.otf */,
+				F408241727CEAE6F00895669 /* font5.otf */,
+				F408241327CEAE6F00895669 /* font6.otf */,
+				F408241527CEAE6F00895669 /* font7.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -235,16 +235,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4DA40AF27C576EC006F8964 /* font3.otf in Resources */,
-				F4DA40AB27C576EC006F8964 /* font5.otf in Resources */,
-				F4DA40AD27C576EC006F8964 /* font2.otf in Resources */,
-				F4DA40A927C576EC006F8964 /* font1.otf in Resources */,
-				F4DA40AE27C576EC006F8964 /* font6.otf in Resources */,
-				F4DA40AC27C576EC006F8964 /* font7.otf in Resources */,
+				F408241B27CEAE6F00895669 /* font3.otf in Resources */,
+				F408241D27CEAE6F00895669 /* font2.otf in Resources */,
+				F408241927CEAE6F00895669 /* font1.otf in Resources */,
+				F408241F27CEAE6F00895669 /* font4.otf in Resources */,
+				F408241E27CEAE6F00895669 /* font5.otf in Resources */,
+				F408241C27CEAE6F00895669 /* font7.otf in Resources */,
 				F4DA409327C56D72006F8964 /* LaunchScreen.storyboard in Resources */,
 				F4DA409027C56D72006F8964 /* Assets.xcassets in Resources */,
-				F4DA40AA27C576EC006F8964 /* font4.otf in Resources */,
 				F4DA408B27C56D72006F8964 /* Main.storyboard in Resources */,
+				F408241A27CEAE6F00895669 /* font6.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
