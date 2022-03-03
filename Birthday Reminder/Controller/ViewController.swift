@@ -9,10 +9,6 @@ import UIKit
 import CoreData
 import UserNotifications
 
-protocol DidSelectUserDelegate{
-    func didSelect(row: Int)
-}
-
 class ViewController: UIViewController {
    
     @IBOutlet var mainCollectionView: UICollectionView!
@@ -24,7 +20,6 @@ class ViewController: UIViewController {
     let dateFormatter = DateFormatter()
     var coreDataClass = CoreDataClass()
     var reminderClass = ReminderClass()
-    var delegate: DidSelectUserDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,8 +44,8 @@ class ViewController: UIViewController {
         }catch{
             print("Error")
         }
-        // Data gemeden coredata array count 0 ise data göstermiyor, yukarıda do catch bloğu ile datayı fetch ettik
-        // sonra count 0 ise veya degilse islem gercekleştirdik
+        // Data gemeden coredata array count 0 ise data göstermiyor, yukarıda do catch bloğu ile data fetch edildi
+        // sonra count 0 ise veya degilse islem gercekleşti
         if coreDataClass.coreDataArray.count == 0{
             mainCollectionView.isHidden = true
             emtyView.isHidden = false
@@ -65,16 +60,13 @@ class ViewController: UIViewController {
             
         }
     }
-    
 }
 
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return coreDataClass.coreDataArray.count
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCollectionViewCell", for: indexPath) as? MainCollectionViewCell else {fatalError()}
         
@@ -83,8 +75,8 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource{
         cell.dateLabel.text = reminderClass.formattedDateGet(date: coreDataClass.coreDataArray[indexPath.row].birthdaydate!)
         
         return cell
-        
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(dateFormatter.string(from: coreDataClass.coreDataArray[indexPath.row].birthdaydate!))
         let refreshAlert = UIAlertController(title: "Choose", message: "Please the choose item", preferredStyle: UIAlertController.Style.alert)
@@ -94,7 +86,6 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource{
             let cartTableViewController = navVC.topViewController as! CreateViewController
             cartTableViewController.state = .update
             cartTableViewController.indexPath = indexPath.row
-            delegate?.didSelect(row: indexPath.row)
             cartTableViewController.reminder = coreDataClass.coreDataArray[indexPath.row]
             tabBarController?.selectedIndex = 1
             

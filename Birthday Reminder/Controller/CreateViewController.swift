@@ -23,7 +23,6 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     @IBOutlet var surnameTextField: UITextField!
     @IBOutlet var userImageView: UIImageView!
     @IBOutlet var selectButtonn: UIButton!
-    
  
     let notificationCenter = UNUserNotificationCenter.current()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -34,15 +33,12 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     var dateTransfer = Date()
     var selectedImage: UIImage?
     var imagePicker = UIImagePickerController()
-    var delegate: DidSelectUserDelegate?
     var indexPath: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         selectButtonn.layer.cornerRadius = 10
         dateTimeLabel.isHidden = true
-        changeImageButton.layer.borderColor = UIColor.systemOrange.cgColor
-        changeImageButton.layer.cornerRadius = 1
         userImageView.image = UIImage(named: "user")
         userImageView.contentMode = UIView.ContentMode.scaleAspectFill
         userImageView.layer.cornerRadius = (userImageView.frame.height) / 2
@@ -50,7 +46,6 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         userImageView.clipsToBounds = true
         nameTextField.delegate = self
         surnameTextField.delegate = self
-        delegate = self
         print("Warning \(indexPath)")
         self.hideKeyboardWhenTappedAround()
         notificationCenter.requestAuthorization(options: [.alert, .sound]) {
@@ -115,7 +110,6 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
                     content.sound = .default
                     
                     let dateComp = Calendar.current.dateComponents([.year, .month, .day], from: self.dateTransfer)
-                    //2022-11-17 11:41:00 +0000
                     let trigger = UNCalendarNotificationTrigger(dateMatching: dateComp, repeats: false)
                     let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
                     
@@ -126,7 +120,6 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
                             return
                         }
                     }
-                    
                 }
             }
         }
@@ -153,10 +146,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
-        let mainTabBarController = self.storyboard!.instantiateViewController(identifier: "MainTabBarController")
-        mainTabBarController.modalPresentationStyle = .fullScreen
-        
-        self.present(mainTabBarController, animated: true, completion: nil)
+        reminderClass.homePagaRedirect(vc: self)
     }
     
     
@@ -172,7 +162,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
                 reminderClass.warningAction(errorMessage: "Name field cannot be empty.", viewController: self)
             }
             else{
-                print("donebutton girdi /(indexPath)")
+                print("donebutton girdi \(indexPath)")
                 let newAdd = BirthdayReminderCore(context: self.coreDataClass.context)
                 newAdd.name = self.nameTextField.text!
                 newAdd.surname = self.surnameTextField.text!
@@ -183,7 +173,10 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
                 self.coreDataClass.coreDataArray.append(newAdd)
                 coreDataClass.saveContext()
                 
-                reminderClass.successAction(vc: self)
+                reminderClass.successPagaRedirect(vc: self)
+                //reminderClass.successAction(vc: self)
+                
+                
             }
             
         }
@@ -201,6 +194,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
                 let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "BirthdayReminderCore")
                 fetchRequest.predicate = NSPredicate(format: "name = %@", reminder?.value(forKey: "name") as! CVarArg)
                 do {
+                    print("Update Button girdi \(indexPath)")
                     let test = try self.coreDataClass.context.fetch(fetchRequest)
                     if test.count == 1 {
                         let objectUpdate = test[0] as! NSManagedObject
@@ -208,16 +202,13 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
                         objectUpdate.setValue(self.surnameTextField.text!, forKey: "surname")
                         objectUpdate.setValue(dateTransfer, forKey: "birthdaydate")
                         objectUpdate.setValue(self.userImageView.image!.jpegData(compressionQuality: 1), forKey: "image")
-                        coreDataClass.updateContext(firstName: self.nameTextField.text!, surName: self.surnameTextField.text!, birthdayDate: self.dateTransfer, personImage: self.userImageView.image!, selectProjectRow: indexPath)
                         self.coreDataClass.saveContext()
                     }
                 } catch {
                     print(error)
                 }
-                
-//                coreDataClass.updateContext(firstName: self.nameTextField.text!, surName: self.surnameTextField.text!, birthdayDate: self.dateTransfer, personImage: self.userImageView.image!, selectProjectRow: indexPath)
-                
-                reminderClass.successAction(vc: self)
+                reminderClass.successPagaRedirect(vc: self)
+                //reminderClass.updateAction(vc: self)
             }
         }
     }
@@ -283,12 +274,6 @@ extension CreateViewController {
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
-    }
-}
-extension CreateViewController: DidSelectUserDelegate{
-    func didSelect(row: Int) {
-        let rowNumber: Int = row
-        indexPath = row
     }
 }
 

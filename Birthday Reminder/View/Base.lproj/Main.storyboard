@@ -362,20 +362,83 @@
             </objects>
             <point key="canvasLocation" x="3433.3333333333335" y="93.75"/>
         </scene>
-        <!--View Controller-->
+        <!--Success View Controller-->
         <scene sceneID="PXO-BR-NqZ">
             <objects>
-                <viewController id="pjV-Yx-VFr" sceneMemberID="viewController">
+                <viewController id="pjV-Yx-VFr" customClass="SuccessViewController" customModule="Birthday_Reminder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SmG-rw-Rst">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="success" translatesAutoresizingMaskIntoConstraints="NO" id="LTu-kj-kJK">
+                                <rect key="frame" x="125" y="271" width="164" height="164"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="164" id="CdV-lQ-XxK"/>
+                                    <constraint firstAttribute="width" constant="164" id="dXe-WZ-30w"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your order have been taken and is being attended to" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="L6Y-8O-lYN">
+                                <rect key="frame" x="82" y="498" width="250" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="VaY-4o-4Kz"/>
+                                    <constraint firstAttribute="height" constant="80" id="vYp-Df-9fy"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="BrandonGrotesque-RegularItalic" family="Brandon Grotesque" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0nW-7t-Obm">
+                                <rect key="frame" x="139.5" y="668" width="135" height="55"/>
+                                <color key="backgroundColor" red="1" green="0.64313725489999995" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="135" id="9Qo-tO-8hx"/>
+                                    <constraint firstAttribute="height" constant="55" id="Rd7-wC-6Jq"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="systemBackgroundColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Ok">
+                                    <fontDescription key="titleFontDescription" name="BrandonGrotesque-RegularItalic" family="Brandon Grotesque" pointSize="25"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="successButtonPressed:" destination="pjV-Yx-VFr" eventType="touchUpInside" id="pbK-VF-YuX"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Success!!!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YI7-n9-Tde">
+                                <rect key="frame" x="94.5" y="443" width="225" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="225" id="DdG-T4-HKG"/>
+                                    <constraint firstAttribute="height" constant="45" id="bvQ-Io-UVT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="BrandonGrotesque-MediumItalic" family="Brandon Grotesque" pointSize="35"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="unX-v0-XoG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="0nW-7t-Obm" firstAttribute="top" secondItem="L6Y-8O-lYN" secondAttribute="bottom" constant="90" id="0bi-WE-zFC"/>
+                            <constraint firstItem="0nW-7t-Obm" firstAttribute="centerX" secondItem="SmG-rw-Rst" secondAttribute="centerX" id="1zX-hi-8W8"/>
+                            <constraint firstItem="YI7-n9-Tde" firstAttribute="top" secondItem="LTu-kj-kJK" secondAttribute="bottom" constant="8" id="58i-m9-DZi"/>
+                            <constraint firstItem="LTu-kj-kJK" firstAttribute="top" secondItem="unX-v0-XoG" secondAttribute="top" constant="183" id="Dlo-2V-JUD"/>
+                            <constraint firstItem="LTu-kj-kJK" firstAttribute="leading" secondItem="unX-v0-XoG" secondAttribute="leading" constant="125" id="FfH-HY-xTE"/>
+                            <constraint firstItem="L6Y-8O-lYN" firstAttribute="top" secondItem="YI7-n9-Tde" secondAttribute="bottom" constant="10" id="Lca-m2-Y6M"/>
+                            <constraint firstItem="unX-v0-XoG" firstAttribute="trailing" secondItem="LTu-kj-kJK" secondAttribute="trailing" constant="125" id="eUV-IQ-rQb"/>
+                            <constraint firstItem="L6Y-8O-lYN" firstAttribute="centerX" secondItem="SmG-rw-Rst" secondAttribute="centerX" id="h1M-UT-PKt"/>
+                            <constraint firstItem="YI7-n9-Tde" firstAttribute="centerX" secondItem="SmG-rw-Rst" secondAttribute="centerX" id="pmP-ig-4Z1"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Ktf-8R-1jc"/>
+                    <connections>
+                        <outlet property="succesLabel" destination="YI7-n9-Tde" id="7u1-Nz-dbh"/>
+                        <outlet property="successButton" destination="0nW-7t-Obm" id="mnt-ld-dMG"/>
+                        <outlet property="successImageView" destination="LTu-kj-kJK" id="cRT-Eh-ZCQ"/>
+                        <outlet property="successMessageLabel" destination="L6Y-8O-lYN" id="S5R-ud-7Wy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Hg-rf-bNH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4162" y="94"/>
+            <point key="canvasLocation" x="5071.0144927536239" y="93.75"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="WbC-rh-WWF">
@@ -390,11 +453,12 @@
                     <connections>
                         <segue destination="CjE-8b-2IQ" kind="relationship" relationship="viewControllers" id="CfP-ez-ANd"/>
                         <segue destination="f1e-0l-jWc" kind="relationship" relationship="viewControllers" id="Nog-UJ-ewS"/>
+                        <segue destination="1cO-FF-vpx" kind="relationship" relationship="viewControllers" id="cB8-ZI-yBk"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9AN-FP-Jol" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="910" y="-792"/>
+            <point key="canvasLocation" x="2954" y="-644"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pw3-8m-3Uf">
@@ -456,6 +520,25 @@
             </objects>
             <point key="canvasLocation" x="2523.1884057971015" y="93.75"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="CbI-sS-2gc">
+            <objects>
+                <navigationController storyboardIdentifier="successNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="1cO-FF-vpx" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" enabled="NO" title="" id="dDZ-Rb-FIt"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="oWY-x9-5QY">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="pjV-Yx-VFr" kind="relationship" relationship="rootViewController" id="aZl-GX-go5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6cT-1N-4xy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4160.8695652173919" y="93.75"/>
+        </scene>
     </scenes>
     <resources>
         <image name="birthday-cake" width="170.5" height="170.5"/>
@@ -463,6 +546,7 @@
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="question" width="512" height="512"/>
+        <image name="success" width="492" height="492"/>
         <image name="user" width="170.5" height="170.5"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

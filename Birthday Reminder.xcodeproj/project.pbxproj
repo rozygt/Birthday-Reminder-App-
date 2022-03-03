@@ -16,6 +16,7 @@
 		F408242B27CEAF5E00895669 /* font7.otf in Resources */ = {isa = PBXBuildFile; fileRef = F408242427CEAF5E00895669 /* font7.otf */; };
 		F408242C27CEAF5E00895669 /* font3.otf in Resources */ = {isa = PBXBuildFile; fileRef = F408242527CEAF5E00895669 /* font3.otf */; };
 		F408242D27CEAF5E00895669 /* font5.otf in Resources */ = {isa = PBXBuildFile; fileRef = F408242627CEAF5E00895669 /* font5.otf */; };
+		F463677027D12DF7001BE2F3 /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F463676F27D12DF7001BE2F3 /* SuccessViewController.swift */; };
 		F4A671F927C6B8C00060DEF0 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A671F827C6B8C00060DEF0 /* MainCollectionViewCell.swift */; };
 		F4DA408427C56D72006F8964 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DA408327C56D72006F8964 /* AppDelegate.swift */; };
 		F4DA408627C56D72006F8964 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DA408527C56D72006F8964 /* SceneDelegate.swift */; };
@@ -41,6 +42,7 @@
 		F408242427CEAF5E00895669 /* font7.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font7.otf; sourceTree = "<group>"; };
 		F408242527CEAF5E00895669 /* font3.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font3.otf; sourceTree = "<group>"; };
 		F408242627CEAF5E00895669 /* font5.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font5.otf; sourceTree = "<group>"; };
+		F463676F27D12DF7001BE2F3 /* SuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
 		F4A671F827C6B8C00060DEF0 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 		F4DA408027C56D72006F8964 /* Birthday Reminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Birthday Reminder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4DA408327C56D72006F8964 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 			children = (
 				F4DA408727C56D72006F8964 /* ViewController.swift */,
 				F4DA409D27C5728E006F8964 /* CreateViewController.swift */,
+				F463676F27D12DF7001BE2F3 /* SuccessViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4A671F927C6B8C00060DEF0 /* MainCollectionViewCell.swift in Sources */,
+				F463677027D12DF7001BE2F3 /* SuccessViewController.swift in Sources */,
 				F4DA409E27C5728E006F8964 /* CreateViewController.swift in Sources */,
 				F40592F527C92494002E70D5 /* ReminderClass.swift in Sources */,
 				F4DA408827C56D72006F8964 /* ViewController.swift in Sources */,
