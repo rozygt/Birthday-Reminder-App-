@@ -24,6 +24,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     @IBOutlet var userImageView: UIImageView!
     @IBOutlet var selectButtonn: UIButton!
     
+ 
     let notificationCenter = UNUserNotificationCenter.current()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var state: ReminderPageState = .create
@@ -197,7 +198,24 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
                 reminderClass.warningAction(errorMessage: "Name field cannot be empty.", viewController: self)
             }
             else{
-                coreDataClass.updateContext(firstName: self.nameTextField.text!, surName: self.surnameTextField.text!, birthdayDate: self.dateTransfer, personImage: self.userImageView.image!, selectProjectRow: indexPath)
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "BirthdayReminderCore")
+                fetchRequest.predicate = NSPredicate(format: "name = %@", reminder?.value(forKey: "name") as! CVarArg)
+                do {
+                    let test = try self.coreDataClass.context.fetch(fetchRequest)
+                    if test.count == 1 {
+                        let objectUpdate = test[0] as! NSManagedObject
+                        objectUpdate.setValue(self.nameTextField.text!, forKey: "name")
+                        objectUpdate.setValue(self.surnameTextField.text!, forKey: "surname")
+                        objectUpdate.setValue(dateTransfer, forKey: "birthdaydate")
+                        objectUpdate.setValue(self.userImageView.image!.jpegData(compressionQuality: 1), forKey: "image")
+                        coreDataClass.updateContext(firstName: self.nameTextField.text!, surName: self.surnameTextField.text!, birthdayDate: self.dateTransfer, personImage: self.userImageView.image!, selectProjectRow: indexPath)
+                        self.coreDataClass.saveContext()
+                    }
+                } catch {
+                    print(error)
+                }
+                
+//                coreDataClass.updateContext(firstName: self.nameTextField.text!, surName: self.surnameTextField.text!, birthdayDate: self.dateTransfer, personImage: self.userImageView.image!, selectProjectRow: indexPath)
                 
                 reminderClass.successAction(vc: self)
             }
@@ -255,7 +273,6 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
     }
-    
 }
 extension CreateViewController {
     func hideKeyboardWhenTappedAround() {
@@ -267,15 +284,11 @@ extension CreateViewController {
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
-    
-    
 }
 extension CreateViewController: DidSelectUserDelegate{
     func didSelect(row: Int) {
         let rowNumber: Int = row
         indexPath = row
     }
-    
-    
 }
 
