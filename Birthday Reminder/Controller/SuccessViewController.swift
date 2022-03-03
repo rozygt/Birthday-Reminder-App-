@@ -15,28 +15,21 @@ class SuccessViewController: UIViewController {
     @IBOutlet var successImageView: UIImageView!
     
     var reminderClass = ReminderClass()
-    var state: ReminderPageState = .create
+    var coreDataClass = CoreDataClass()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         successButton.layer.cornerRadius = 10
-        createUpdateControls()
 
         // Do any additional setup after loading the view.
-        
-    }
-    func createUpdateControls(){
-        if state == .create {
-            successMessageLabel.text = "Birthday date added success."
-        }
-        else{
-            successMessageLabel.text = "Birthday update successfully added"
-        }
     }
     
     @IBAction func successButtonPressed(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let mainTabBarController = storyBoard.instantiateViewController(identifier: "MainTabBarController")
+        mainTabBarController.modalPresentationStyle = .fullScreen
         
-        reminderClass.homePagaRedirect(vc: self)
+        present(mainTabBarController, animated: true, completion: nil)
     }
     
 }

@@ -57,11 +57,13 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         self.hideKeyboardWhenTappedAround()
         
         if state == .create{
-            print("create buraya girdi11")
+            print("create buraya girdi")
+            addButton.title = "Done"
         }
         else{
             print("update buraya girdi")
             getReminder()
+            addButton.title = "Update"
         }
     }
     
@@ -120,6 +122,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
                             return
                         }
                     }
+                    
                 }
             }
         }
@@ -146,7 +149,10 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
-        reminderClass.homePagaRedirect(vc: self)
+        let mainTabBarController = self.storyboard!.instantiateViewController(identifier: "MainTabBarController")
+        mainTabBarController.modalPresentationStyle = .fullScreen
+        
+        self.present(mainTabBarController, animated: true, completion: nil)
     }
     
     
@@ -173,10 +179,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
                 self.coreDataClass.coreDataArray.append(newAdd)
                 coreDataClass.saveContext()
                 
-                reminderClass.successPagaRedirect(vc: self)
-                //reminderClass.successAction(vc: self)
-                
-                
+                reminderClass.successAction(vc: self)
             }
             
         }
@@ -207,8 +210,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
                 } catch {
                     print(error)
                 }
-                reminderClass.successPagaRedirect(vc: self)
-                //reminderClass.updateAction(vc: self)
+                reminderClass.updateAction(vc: self)
             }
         }
     }
