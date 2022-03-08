@@ -19,16 +19,11 @@ class SuccessViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         successButton.layer.cornerRadius = 10
-
-        // Do any additional setup after loading the view.
+        successMessageLabel.text = " "
+        
     }
     
     @IBAction func successButtonPressed(_ sender: Any) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let mainTabBarController = storyBoard.instantiateViewController(identifier: "MainTabBarController")
-        mainTabBarController.modalPresentationStyle = .fullScreen
-        
-        present(mainTabBarController, animated: true, completion: nil)
+        reminderClass.transition(vc: self, identifier: "MainTabBarController")
     }
-    
 }

@@ -15,11 +15,10 @@ class ViewController: UIViewController {
     @IBOutlet var emtyLabel: UILabel!
     @IBOutlet var emtyImage: UIImageView!
     @IBOutlet var emtyView: UIView!
-    
-    let notificationCenter = UNUserNotificationCenter.current()
-    let dateFormatter = DateFormatter()
+
     var coreDataClass = CoreDataClass()
     var reminderClass = ReminderClass()
+    var variableClass = VariableClass()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,8 +43,7 @@ class ViewController: UIViewController {
         }catch{
             print("Error")
         }
-        // Data gemeden coredata array count 0 ise data göstermiyor, yukarıda do catch bloğu ile data fetch edildi
-        // sonra count 0 ise veya degilse islem gercekleşti
+
         if coreDataClass.coreDataArray.count == 0{
             mainCollectionView.isHidden = true
             emtyView.isHidden = false
@@ -57,7 +55,6 @@ class ViewController: UIViewController {
             emtyView.isHidden = true
             emtyImage.isHidden = true
             emtyLabel.isHidden = true
-            
         }
     }
 }
@@ -78,15 +75,15 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(dateFormatter.string(from: coreDataClass.coreDataArray[indexPath.row].birthdaydate!))
+        print(variableClass.dateFormatter.string(from: coreDataClass.coreDataArray[indexPath.row].birthdaydate!))
         let refreshAlert = UIAlertController(title: "Choose", message: "Please the choose item", preferredStyle: UIAlertController.Style.alert)
         refreshAlert.addAction(UIAlertAction(title: "Edit Project", style: .default, handler: { [self] (action: UIAlertAction!) in
             
             let navVC = tabBarController?.viewControllers![1] as! UINavigationController
             let cartTableViewController = navVC.topViewController as! CreateViewController
-            cartTableViewController.state = .update
-            cartTableViewController.indexPath = indexPath.row
-            cartTableViewController.reminder = coreDataClass.coreDataArray[indexPath.row]
+            cartTableViewController.variableClass.state = .update
+            cartTableViewController.variableClass.indexPath = indexPath.row
+            cartTableViewController.variableClass.reminder = coreDataClass.coreDataArray[indexPath.row]
             tabBarController?.selectedIndex = 1
             
         }))
@@ -105,9 +102,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource{
             self.mainCollectionView.reloadData()
         }))
         refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
-            
         }))
-        
         present(refreshAlert, animated: true, completion: nil)
     }
     

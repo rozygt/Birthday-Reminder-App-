@@ -10,6 +10,9 @@ import UIKit
 import SwiftUI
 
 class ReminderClass{
+    
+    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+    
     func formattedDateGet(date: Date) -> String
     {
         let formatter = DateFormatter()
@@ -29,9 +32,8 @@ class ReminderClass{
                 let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let mainTabBarController = storyBoard.instantiateViewController(identifier: "MainTabBarController")
                 mainTabBarController.modalPresentationStyle = .popover
-                
+    
                 vc.present(mainTabBarController, animated: true, completion: nil)
-                
             }))
             vc.present(alert, animated: true, completion: nil)
         }
@@ -39,13 +41,19 @@ class ReminderClass{
     func updateAction(vc: UIViewController){
         let alert = UIAlertController(title: "Update success", message: "Birthday update successfully added", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { action in
-            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let mainTabBarController = storyBoard.instantiateViewController(identifier: "MainTabBarController")
+
+            let mainTabBarController = self.storyBoard.instantiateViewController(identifier: "MainTabBarController")
             mainTabBarController.modalPresentationStyle = .fullScreen
             
             vc.present(mainTabBarController, animated: true, completion: nil)
-            
         }))
         vc.present(alert, animated: true, completion: nil)
+    }
+    
+    func transition(vc: UIViewController, identifier: String){
+        let mainTabBarController = self.storyBoard.instantiateViewController(identifier: identifier)
+        mainTabBarController.modalPresentationStyle = .fullScreen
+        
+        vc.present(mainTabBarController, animated: true, completion: nil)
     }
 }

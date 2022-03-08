@@ -9,39 +9,55 @@ import Foundation
 import SwiftyJSON
 import CoreData
 import UIKit
+import SwiftUI
 
 class CoreDataClass{
 
     var coreDataArray = [BirthdayReminderCore]()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let currentDateTime = Date()
+    let notificationCenter = UNUserNotificationCenter.current()
     
     func saveContext(){
         
         do{
             try context.save()
-            print("SAVE BASARILI")
             
         }catch{
             print("Save Error")
         }
-        
     }
     
-//    func updateContext(firstName : String, surName: String, birthdayDate: Date, personImage: UIImage, selectProjectRow: Int){
-//        let data = coreDataArray[selectProjectRow]
-//        let imageAsNSData = personImage.jpegData(compressionQuality: 1)
-//        data.setValue(firstName , forKey: "name")
-//        data.setValue(surName, forKey: "surname")
-//        data.setValue(currentDateTime, forKey: "birtdaydate")
-//        data.setValue(imageAsNSData, forKey: "image")
-//        do {
-//            try context.save()
-//        } catch {
-//            print(error)
-//        }
-        
-//    }
+    func save(titleBox: String, messageBox: String){
+        notificationCenter.getNotificationSettings { (settings) in
+        DispatchQueue.main.async
+        {
+            let title = titleBox
+            let message = messageBox
+            
+            if(settings.authorizationStatus == .authorized)
+            {
+                let content = UNMutableNotificationContent()
+                content.title = title
+                content.body = message
+                content.sound = .default
+                
+                var dateTransfer = Date()
+                let dateComp = Calendar.current.dateComponents([.year, .month, .day], from: dateTransfer)
+                let trigger = UNCalendarNotificationTrigger(dateMatching: dateComp, repeats: false)
+                let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                
+                self.notificationCenter.add(request) { (error) in
+                    if(error != nil)
+                    {
+                        print("Error " + error.debugDescription)
+                        return
+                    }
+                }
+            }
+        }
+    }
+    }
 }
     
     
