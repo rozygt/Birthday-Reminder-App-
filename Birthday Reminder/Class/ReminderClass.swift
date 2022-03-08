@@ -24,17 +24,17 @@ class ReminderClass{
     }
     
     func successAction(vc: UIViewController){
-        let alert = UIAlertController(title: "Success", message: "Birthday date added success", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { action in
-            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let mainTabBarController = storyBoard.instantiateViewController(identifier: "MainTabBarController")
-            mainTabBarController.modalPresentationStyle = .fullScreen
-            
-            vc.present(mainTabBarController, animated: true, completion: nil)
-            
-        }))
-        vc.present(alert, animated: true, completion: nil)
-    }
+            let alert = UIAlertController(title: "Success", message: "Birthday date added success", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { action in
+                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let mainTabBarController = storyBoard.instantiateViewController(identifier: "MainTabBarController")
+                mainTabBarController.modalPresentationStyle = .popover
+                
+                vc.present(mainTabBarController, animated: true, completion: nil)
+                
+            }))
+            vc.present(alert, animated: true, completion: nil)
+        }
     
     func updateAction(vc: UIViewController){
         let alert = UIAlertController(title: "Update success", message: "Birthday update successfully added", preferredStyle: UIAlertController.Style.alert)

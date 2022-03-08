@@ -23,13 +23,14 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     @IBOutlet var surnameTextField: UITextField!
     @IBOutlet var userImageView: UIImageView!
     @IBOutlet var selectButtonn: UIButton!
- 
+    
     let notificationCenter = UNUserNotificationCenter.current()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var state: ReminderPageState = .create
     var reminder: NSManagedObject?
     var reminderClass = ReminderClass()
     var coreDataClass = CoreDataClass()
+    
     var dateTransfer = Date()
     var selectedImage: UIImage?
     var imagePicker = UIImagePickerController()
@@ -127,7 +128,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
             }
         }
     }
-
+    
     @IBAction func selectButtonPressed(_ sender: Any) {
         let minDate = DatePickerHelper.shared.dateFrom(day: 18, month: 08, year: 1940)!
         let maxDate = DatePickerHelper.shared.dateFrom(day: 18, month: 08, year: 2023)!
@@ -156,6 +157,9 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     }
     
     
+
+    
+    
     @IBAction func doneButtonPressed(_ sender: Any) {
         if state == .create {
             if nameTextField.text == "" && dateTimeLabel.isHidden == true{
@@ -177,7 +181,6 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
                 newAdd.birthdaydate = self.dateTransfer
                 
                 self.coreDataClass.coreDataArray.append(newAdd)
-                coreDataClass.saveContext()
                 
                 reminderClass.successAction(vc: self)
             }
@@ -266,7 +269,9 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
     }
+    
 }
+
 extension CreateViewController {
     func hideKeyboardWhenTappedAround() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(CreateViewController.dismissKeyboard))

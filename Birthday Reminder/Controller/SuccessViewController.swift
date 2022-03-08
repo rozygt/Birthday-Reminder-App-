@@ -15,7 +15,6 @@ class SuccessViewController: UIViewController {
     @IBOutlet var successImageView: UIImageView!
     
     var reminderClass = ReminderClass()
-    var coreDataClass = CoreDataClass()
     
     override func viewDidLoad() {
         super.viewDidLoad()
