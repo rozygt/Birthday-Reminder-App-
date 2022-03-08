@@ -85,7 +85,6 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     @IBAction func selectButtonPressed(_ sender: Any) {
         let minDate = DatePickerHelper.shared.dateFrom(day: 18, month: 08, year: 1940)!
         let maxDate = DatePickerHelper.shared.dateFrom(day: 18, month: 08, year: 2023)!
-        // Create picker object
         let datePicker = DatePicker()
         datePicker.setup(beginWith: Date(), min: minDate, max: maxDate) { [self] (selected, date) in
             if selected, let selectedDate = date {
@@ -97,12 +96,11 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
                 print("cancelled")
             }
         }
-        // Display
         datePicker.show(in: self, on: (sender as! UIView))
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
-        reminderClass.transition(vc: self, identifier: "MainTabBarController")
+        reminderClass.backTransition(vc: self, identifier: "MainTabBarController")
     }
     
     @IBAction func doneButtonPressed(_ sender: Any) {
@@ -114,33 +112,14 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         }
         else{
             if variableClass.state == .create {
-                let newAdd = BirthdayReminderCore(context: self.coreDataClass.context)
-                newAdd.name = self.nameTextField.text!
-                newAdd.surname = self.surnameTextField.text!
-                let imageAsNSData = self.userImageView.image!.jpegData(compressionQuality: 1)
-                newAdd.image = imageAsNSData
-                newAdd.birthdaydate = self.variableClass.dateTransfer
                 
-                self.coreDataClass.coreDataArray.append(newAdd)
-                reminderClass.transition(vc: self, identifier: "SuccessViewController")
+                coreDataClass.saveCore(nameText: self.nameTextField.text!, surnameText: self.surnameTextField.text!, imageUser: self.userImageView, date:self.variableClass.dateTransfer)
+
+                reminderClass.transition(vc: self, identifier: "SuccessViewController", strText: "Birthday update successfully added")
             }
             else {
-                let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "BirthdayReminderCore")
-                fetchRequest.predicate = NSPredicate(format: "name = %@", variableClass.reminder?.value(forKey: "name") as! CVarArg)
-                do {
-                    let test = try self.coreDataClass.context.fetch(fetchRequest)
-                    if test.count == 1 {
-                        let objectUpdate = test[0] as! NSManagedObject
-                        objectUpdate.setValue(self.nameTextField.text!, forKey: "name")
-                        objectUpdate.setValue(self.surnameTextField.text!, forKey: "surname")
-                        objectUpdate.setValue(variableClass.dateTransfer, forKey: "birthdaydate")
-                        objectUpdate.setValue(self.userImageView.image!.jpegData(compressionQuality: 1), forKey: "image")
-                        self.coreDataClass.saveContext()
-                    }
-                } catch {
-                    print(error)
-                }
-                reminderClass.transition(vc: self, identifier: "SuccessViewController")
+                coreDataClass.updateCore(nameText: self.nameTextField.text!, surnameText: self.surnameTextField.text!, imageUser: self.userImageView, date:self.variableClass.dateTransfer, defaulName: variableClass.reminder?.value(forKey: "name") as! CVarArg as! String)
+                reminderClass.transition(vc: self, identifier: "SuccessViewController", strText: "Birthday update successfully added")
             }
         }
     }

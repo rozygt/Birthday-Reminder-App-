@@ -14,16 +14,17 @@ class SuccessViewController: UIViewController {
     @IBOutlet var successButton: UIButton!
     @IBOutlet var successImageView: UIImageView!
     
+    var str: String?
     var reminderClass = ReminderClass()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         successButton.layer.cornerRadius = 10
-        successMessageLabel.text = " "
+        successMessageLabel.text = str
         
     }
     
     @IBAction func successButtonPressed(_ sender: Any) {
-        reminderClass.transition(vc: self, identifier: "MainTabBarController")
+        reminderClass.backTransition(vc: self, identifier: "MainTabBarController")
     }
 }

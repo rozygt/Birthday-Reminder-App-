@@ -26,34 +26,19 @@ class ReminderClass{
         viewController.present(alert, animated: true, completion: nil)
     }
     
-    func successAction(vc: UIViewController){
-            let alert = UIAlertController(title: "Success", message: "Birthday date added success", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { action in
-                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let mainTabBarController = storyBoard.instantiateViewController(identifier: "MainTabBarController")
-                mainTabBarController.modalPresentationStyle = .popover
-    
-                vc.present(mainTabBarController, animated: true, completion: nil)
-            }))
-            vc.present(alert, animated: true, completion: nil)
-        }
-    
-    func updateAction(vc: UIViewController){
-        let alert = UIAlertController(title: "Update success", message: "Birthday update successfully added", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { action in
-
-            let mainTabBarController = self.storyBoard.instantiateViewController(identifier: "MainTabBarController")
-            mainTabBarController.modalPresentationStyle = .fullScreen
-            
-            vc.present(mainTabBarController, animated: true, completion: nil)
-        }))
-        vc.present(alert, animated: true, completion: nil)
+    func transition(vc: UIViewController, identifier: String, strText: String){
+        let mainTabBarController = self.storyBoard.instantiateViewController(identifier: identifier) as? SuccessViewController
+        mainTabBarController!.str = strText
+        mainTabBarController!.modalPresentationStyle = .fullScreen
+        
+        vc.present(mainTabBarController!, animated: true, completion: nil)
     }
     
-    func transition(vc: UIViewController, identifier: String){
+    func backTransition(vc: UIViewController, identifier: String){
         let mainTabBarController = self.storyBoard.instantiateViewController(identifier: identifier)
         mainTabBarController.modalPresentationStyle = .fullScreen
         
         vc.present(mainTabBarController, animated: true, completion: nil)
     }
+
 }
